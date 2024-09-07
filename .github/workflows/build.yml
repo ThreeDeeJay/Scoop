@@ -3,12 +3,13 @@ name: Build
 env:
   Artifacts: app/build/outputs/apk/debug/*.apk
   Branch: ${{github.ref_name}}
+  GH_TOKEN: ${{ github.token }}
 
 on:
   push:
-    Branches: $Branch
+    branches: $Branch
   pull_request:
-    Branches: $Branch
+    branches: $Branch
   workflow_dispatch:
 
 jobs:
