@@ -1,7 +1,7 @@
 name: Build
 
 env:
-  Artifacts: app/build/outputs/apk/debug/*.apk app/build/outputs/apk/release/*.apk
+  Artifacts: app/build/outputs/apk/debug/*.apk
   Branch: ${{github.ref_name}}
 
 on:
@@ -54,4 +54,4 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: true
         title: "[${{env.CommitDate}}] ${{github.event.repository.name}} r${{env.CommitCount}}@${{env.CommitHashShort}}"
-        files: "${{env.Artifacts}}"
+        files: "${{github.workspace}}/${{env.Artifacts}}"
