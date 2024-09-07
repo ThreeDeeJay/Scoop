@@ -53,5 +53,5 @@ jobs:
       run: |
         gh release create r${{env.CommitCount}} --generate-notes --latest=false --prerelease --title "[${{env.CommitDate}}] ${{github.event.repository.name}} r${{env.CommitCount}}@${{env.CommitHashShort}}"
         gh release create latest                --generate-notes --latest=false --prerelease --title "[${{env.CommitDate}}] ${{github.event.repository.name}} r${{env.CommitCount}}@${{env.CommitHashShort}}"
-        gh release upload r${{env.DSOALCommitCount}} "${{github.workspace}}/${{env.Artifacts}}"
-        gh release upload latest "${{github.workspace}}/${{env.Artifacts}}"
+        gh release upload r${{env.DSOALCommitCount}} "${{env.Artifacts}}"
+        gh release upload latest                     "${{env.Artifacts}}"
