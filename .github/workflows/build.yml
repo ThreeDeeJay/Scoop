@@ -7,9 +7,9 @@ env:
 
 on:
   push:
-    branches: $Branch
+    Branches: $Branch
   pull_request:
-    branches: $Branch
+    Branches: $Branch
   workflow_dispatch:
 
 jobs:
