@@ -21,11 +21,11 @@ jobs:
 
     - name: Get current date, commit hash and count
       run: |
-        echo "CommitDate=$(git show -s --date=format:'%Y-%m-%d' --format=%cd)" >> $env:GITHUB_ENV
-        echo "CommitHashShort=$(git rev-parse --short=7 HEAD)" >> $env:GITHUB_ENV
-        echo "CommitCount=$(git rev-list --count ${{env.Branch}})" >> $env:GITHUB_ENV
+        echo "CommitHashShort=$(git rev-parse --short=8 HEAD)" >> $env:GITHUB_ENV
+        echo "CommitDate=$(git show -s --date=iso-local --format=%cd)" >> $env:GITHUB_ENV
+        echo "CommitCount=$(git rev-list --count HEAD)" >> $env:GITHUB_ENV
     
-    - name: set up JDK 11
+    - name: set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
@@ -46,6 +46,15 @@ jobs:
       with:
         name: "${{github.event.repository.name}}_r${{env.CommitCount}}@${{env.CommitHashShort}}"
         path: "${{github.workspace}}/${{env.Artifacts}}/"
+
+    - name: GitHub pre-release
+      uses: "marvinpinto/action-automatic-releases@latest"
+      with:
+        repo_token: "${{secrets.GITHUB_TOKEN}}"
+        automatic_release_tag: "latest"
+        prerelease: true
+        title: "[${{env.CommitDate}}] ${{github.event.repository.name}} r${{env.CommitCount}}@${{env.CommitHashShort}}"
+        files: "${{github.workspace}}/${{env.Artifacts}}"
 
     - name: GitHub pre-release
       uses: "marvinpinto/action-automatic-releases@latest"
