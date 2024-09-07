@@ -1,7 +1,7 @@
 name: Build
 
 env:
-  Artifacts: build
+  Artifacts: app/build/outputs/apk/debug/*.apk app/build/outputs/apk/release/*.apk
   Branch: ${{github.ref_name}}
 
 on:
@@ -36,7 +36,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --warning-mode all
 
     - name: List files
       run: ls -R
@@ -54,4 +54,4 @@ jobs:
         automatic_release_tag: "latest"
         prerelease: true
         title: "[${{env.CommitDate}}] ${{github.event.repository.name}} r${{env.CommitCount}}@${{env.CommitHashShort}}"
-        files: "${{github.workspace}}/${{env.Artifacts}}/${{github.event.repository.name}}_r${{env.CommitCount}}@${{env.CommitHashShort}}.apk"
+        files: "${{env.Artifacts}}"
